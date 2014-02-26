@@ -6,12 +6,12 @@ Gem::Specification.new do |gem|
   gem.email         = ["benoist.claassen@gmail.com"]
   gem.description   = %q{This gem is a (partial) implementation of the XMLDsig specification}
   gem.summary       = %q{This gem is a (partial) implementation of the XMLDsig specification (http://www.w3.org/TR/xmldsig-core)}
-  gem.homepage      = "https://github.com/benoist/xmldsig"
+  gem.homepage      = "https://github.com/infinum/xmldsig"
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
-  gem.name          = "xmldsig"
+  gem.name          = "xmldsig-fiscalizer"
   gem.license       = 'MIT'
   gem.require_paths = ["lib"]
   gem.version       = Xmldsig::VERSION
