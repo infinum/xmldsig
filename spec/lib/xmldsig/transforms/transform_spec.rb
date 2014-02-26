@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Xmldsig::Transforms::Transform do
+describe Xmldsig_fiscalizer::Transforms::Transform do
 
   it "raises a warning when transform is called" do
     described_class.any_instance.should_receive(:warn)

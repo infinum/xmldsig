@@ -1,5 +1,5 @@
 [![Build Status](https://secure.travis-ci.org/benoist/xmldsig.png?branch=master)](http://travis-ci.org/benoist/xmldsig)
-# Xmldsig
+# Xmldsig_fiscalizer
 
 This gem is a (partial) implementation of the XMLDsig specification (http://www.w3.org/TR/xmldsig-core)
 
@@ -47,7 +47,7 @@ XML
 private_key = OpenSSL::PKey::RSA.new(File.read("key.pem"))
 certificate = OpenSSL::X509::Certificate.new(File.read("certificate.cer"))
 
-unsigned_document = Xmldsig::SignedDocument.new(unsigned_xml)
+unsigned_document = Xmldsig_fiscalizer::SignedDocument.new(unsigned_xml)
 signed_xml = unsigned_document.sign(private_key)
 
 # With block
@@ -57,11 +57,11 @@ end
 
 # Validation
 
-signed_document = Xmldsig::SignedDocument.new(signed_xml)
+signed_document = Xmldsig_fiscalizer::SignedDocument.new(signed_xml)
 signed_document.validate(certificate)
 
 # With block
-signed_document = Xmldsig::SignedDocument.new(signed_xml)
+signed_document = Xmldsig_fiscalizer::SignedDocument.new(signed_xml)
 signed_document.validate do |signature_value, data|
   certificate.public_key.verify(OpenSSL::Digest::SHA256.new, signature_value, data)
 end

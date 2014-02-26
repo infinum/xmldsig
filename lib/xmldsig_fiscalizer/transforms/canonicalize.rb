@@ -1,4 +1,4 @@
-module Xmldsig
+module Xmldsig_fiscalizer
   class Transforms < Array
     class Canonicalize < Transform
       def transform
@@ -13,7 +13,7 @@ module Xmldsig
       end
 
       def inclusive_namespaces
-        inclusive_namespaces = transform_node.at_xpath("descendant::ec:InclusiveNamespaces", Xmldsig::NAMESPACES)
+        inclusive_namespaces = transform_node.at_xpath("descendant::ec:InclusiveNamespaces", Xmldsig_fiscalizer::NAMESPACES)
         if inclusive_namespaces && inclusive_namespaces.has_attribute?("PrefixList")
           inclusive_namespaces.get_attribute("PrefixList").to_s.split(" ")
         else

@@ -1,4 +1,4 @@
-module Xmldsig
+module Xmldsig_fiscalizer
   class Canonicalizer
     attr_accessor :node, :method, :inclusive_namespaces
 

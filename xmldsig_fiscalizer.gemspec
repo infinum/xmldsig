@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-require File.expand_path('../lib/xmldsig/version', __FILE__)
+require File.expand_path('../lib/xmldsig_fiscalizer/version', __FILE__)
 
 Gem::Specification.new do |gem|
   gem.authors       = ["benoist"]
@@ -14,7 +14,7 @@ Gem::Specification.new do |gem|
   gem.name          = "xmldsig-fiscalizer"
   gem.license       = 'MIT'
   gem.require_paths = ["lib"]
-  gem.version       = Xmldsig::VERSION
+  gem.version       = Xmldsig_fiscalizer::VERSION
 
   gem.add_dependency("nokogiri")
 end

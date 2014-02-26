@@ -1,17 +1,17 @@
 require 'spec_helper'
 
-describe Xmldsig::Signature do
+describe Xmldsig_fiscalizer::Signature do
   let(:certificate) { OpenSSL::X509::Certificate.new(File.read("spec/fixtures/certificate.cer")) }
   let(:other_certificate) { OpenSSL::X509::Certificate.new(File.read("spec/fixtures/certificate2.cer")) }
   let(:private_key) { OpenSSL::PKey::RSA.new(File.read("spec/fixtures/key.pem")) }
   let(:document) { Nokogiri::XML::Document.parse File.read("spec/fixtures/signed.xml") }
-  let(:signature_node) { document.at_xpath("//ds:Signature", Xmldsig::NAMESPACES) }
-  let(:signature) { Xmldsig::Signature.new(signature_node) }
+  let(:signature_node) { document.at_xpath("//ds:Signature", Xmldsig_fiscalizer::NAMESPACES) }
+  let(:signature) { Xmldsig_fiscalizer::Signature.new(signature_node) }
 
   describe "#sign" do
     let(:document) { Nokogiri::XML::Document.parse File.read("spec/fixtures/unsigned.xml") }
-    let(:signature_node) { document.at_xpath("//ds:Signature", Xmldsig::NAMESPACES) }
-    let(:signature) { Xmldsig::Signature.new(signature_node) }
+    let(:signature_node) { document.at_xpath("//ds:Signature", Xmldsig_fiscalizer::NAMESPACES) }
+    let(:signature) { Xmldsig_fiscalizer::Signature.new(signature_node) }
 
     before :each do
       signature.sign(private_key)
@@ -61,14 +61,14 @@ describe Xmldsig::Signature do
   describe "#signed_info" do
     it "returns the canonicalized signed info element" do
       signature.signed_info.to_s.should ==
-          document.at_xpath("//ds:SignedInfo", Xmldsig::NAMESPACES).to_s
+          document.at_xpath("//ds:SignedInfo", Xmldsig_fiscalizer::NAMESPACES).to_s
     end
   end
 
   describe "#signature_value" do
     it "returns the signature value" do
       signature.signature_value.should ==
-          Base64.decode64(document.at_xpath("//ds:SignatureValue", Xmldsig::NAMESPACES).content)
+          Base64.decode64(document.at_xpath("//ds:SignatureValue", Xmldsig_fiscalizer::NAMESPACES).content)
     end
   end
 

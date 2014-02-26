@@ -1,4 +1,4 @@
-module Xmldsig
+module Xmldsig_fiscalizer
   class SignedDocument
     attr_accessor :document
 

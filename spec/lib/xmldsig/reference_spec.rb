@@ -1,8 +1,8 @@
 require "spec_helper"
 
-describe Xmldsig::Reference do
+describe Xmldsig_fiscalizer::Reference do
   let(:document) { Nokogiri::XML::Document.parse File.read("spec/fixtures/signed.xml") }
-  let(:reference) { Xmldsig::Reference.new(document.at_xpath('//ds:Reference', Xmldsig::NAMESPACES)) }
+  let(:reference) { Xmldsig_fiscalizer::Reference.new(document.at_xpath('//ds:Reference', Xmldsig_fiscalizer::NAMESPACES)) }
 
   describe "#digest_value" do
     it "returns the digest value in the xml" do
@@ -39,12 +39,12 @@ describe Xmldsig::Reference do
 
     it "returns the reference node when using WS-Security style id attribute" do
       node = document.at_xpath('//*[@ID]')
-      node.add_namespace('wsu', Xmldsig::NAMESPACES['wsu'])
+      node.add_namespace('wsu', Xmldsig_fiscalizer::NAMESPACES['wsu'])
       node['wsu:Id'] = node['ID']
       node.remove_attribute('ID')
 
       reference.referenced_node.
-        attribute_with_ns('Id', Xmldsig::NAMESPACES['wsu']).value.
+        attribute_with_ns('Id', Xmldsig_fiscalizer::NAMESPACES['wsu']).value.
         should == 'foo'
     end
 
@@ -53,7 +53,7 @@ describe Xmldsig::Reference do
       node.remove_attribute('ID')
 
       expect { reference.referenced_node }.
-        to raise_error(Xmldsig::Reference::ReferencedNodeNotFound)
+        to raise_error(Xmldsig_fiscalizer::Reference::ReferencedNodeNotFound)
     end
   end
 

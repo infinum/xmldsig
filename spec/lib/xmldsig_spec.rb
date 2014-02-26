@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Xmldsig do
+describe Xmldsig_fiscalizer do
   let(:private_key) { OpenSSL::PKey::RSA.new(File.read("spec/fixtures/key.pem")) }
   let(:certificate) { OpenSSL::X509::Certificate.new(File.read("spec/fixtures/certificate.cer")) }
 
@@ -8,15 +8,15 @@ describe Xmldsig do
     Dir["spec/fixtures/unsigned/*.xml"].each do |document|
       describe "#{document}" do
         let(:unsigned_xml) { File.read(document) }
-        let(:unsigned_document) { Xmldsig::SignedDocument.new(unsigned_xml) }
+        let(:unsigned_document) { Xmldsig_fiscalizer::SignedDocument.new(unsigned_xml) }
         let(:signed_document) { unsigned_document.sign(private_key) }
 
         it "should be signable an validateable" do
-          Xmldsig::SignedDocument.new(signed_document).validate(certificate).should be_true
+          Xmldsig_fiscalizer::SignedDocument.new(signed_document).validate(certificate).should be_true
         end
 
         it 'should have a signature element' do
-          Xmldsig::SignedDocument.new(signed_document).signatures.count.should == 1
+          Xmldsig_fiscalizer::SignedDocument.new(signed_document).signatures.count.should == 1
         end
 
         # TODO: remove this verification step when library matures
@@ -34,7 +34,7 @@ describe Xmldsig do
     Dir["spec/fixtures/signed/*.txt"].each do |document|
       describe "#{document}" do
         let(:signed_xml) { Base64.decode64(File.read(document)) }
-        let(:signed_document) { Xmldsig::SignedDocument.new(signed_xml) }
+        let(:signed_document) { Xmldsig_fiscalizer::SignedDocument.new(signed_xml) }
         let(:certificate) { OpenSSL::X509::Certificate.new(File.read(document.gsub('.txt', '.cert'))) }
 
         it "should be validateable" do
